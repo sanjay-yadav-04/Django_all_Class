@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}
+Register
+{% endblock title %}
+
+{% block css %}
+<!-- keep empty or add page-specific css -->
+{% endblock css %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow-sm p-4" style="width: 100%; max-width: 450px;">
+        
+        <h3 class="text-center mb-4">Register</h3>
+        {{x}}
+        <form action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label class="form-label">User name</label>
+                <input type="text" name="name" class="form-control" placeholder="Enter your name" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Contact</label>
+                <input type="text" name="contact" class="form-control" placeholder="Enter your contact" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" name="password" class="form-control" placeholder="Enter your password" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">
+                Login
+            </button>
+        </form>
+
+    </div>
+</div>
+{% endblock content %}
