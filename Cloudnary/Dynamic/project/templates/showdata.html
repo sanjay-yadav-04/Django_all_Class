@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Show Data</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body{ background:#f4f6f9; }
+    .card{ border-radius:15px; }
+    .media-box{
+      border: 1px solid #eee;
+      padding: 12px;
+      border-radius: 12px;
+      background: #fff;
+    }
+    .url-box{
+      word-break: break-all;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container py-5">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold">Uploaded Data</h2>
+    <a href="{% url 'landing' %}" class="btn btn-primary">+ Add New</a>
+  </div>
+
+  {% if data %}
+    <div class="row g-4">
+      {% for i in data %}
+      <div class="col-md-6">
+        <div class="card shadow-sm border-0 p-3">
+
+          <h5 class="fw-bold mb-2">{{ i.name }}</h5>
+          <p class="mb-1"><b>Email:</b> {{ i.email }}</p>
+          <p class="mb-3"><b>Age:</b> {{ i.age }}</p>
+
+          <!-- IMAGE -->
+          <div class="media-box mb-3">
+            <h6 class="fw-bold">Image</h6>
+
+            {% if i.image %}
+              <img src="{{ i.image.url }}" class="img-fluid rounded mb-2" alt="image">
+              <div class="url-box">
+                <b>Cloudinary URL:</b><br>
+                <a href="{{ i.image.url }}" target="_blank">{{ i.image.url }}</a>
+              </div>
+            {% else %}
+              <p class="text-danger m-0">No image uploaded</p>
+            {% endif %}
+          </div>
+
+          <!-- VIDEO -->
+          <div class="media-box mb-3">
+            <h6 class="fw-bold">Video</h6>
+
+            {% if i.video %}
+              <video controls class="w-100 rounded mb-2">
+                <source src="{{ i.video.url }}">
+              </video>
+
+              <div class="url-box">
+                <b>Cloudinary URL:</b><br>
+                <a href="{{ i.video.url }}" target="_blank">{{ i.video.url }}</a>
+              </div>
+            {% else %}
+              <p class="text-danger m-0">No video uploaded</p>
+            {% endif %}
+          </div>
+
+          <!-- PDF -->
+          <div class="media-box">
+            <h6 class="fw-bold">PDF</h6>
+
+            {% if i.pdf %}
+              <a class="btn btn-dark btn-sm mb-2" href="{{ i.pdf.url }}" target="_blank">
+                Open PDF
+              </a>
+
+              <div class="url-box">
+                <b>Cloudinary URL:</b><br>
+                <a href="{{ i.pdf.url }}" target="_blank">{{ i.pdf.url }}</a>
+              </div>
+            {% else %}
+              <p class="text-danger m-0">No pdf uploaded</p>
+            {% endif %}
+          </div>
+
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-warning">
+      No data uploaded yet.
+    </div>
+  {% endif %}
+
+</div>
+
+</body>
+</html>
