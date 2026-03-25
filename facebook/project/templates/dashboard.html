@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container-fluid mt-3">
+  <div class="row" style="min-height: 85vh;">
+
+    <!-- SIDEBAR -->
+    <div class="col-md-3 col-lg-2 bg-dark text-white p-3">
+      <h5 class="text-center mb-4">Admin Dashboard</h5>
+
+      <div class="d-grid gap-3">
+
+        <form method="get">
+          <input type="hidden" name="page" value="addEmp">
+          <button class="btn btn-light w-100 fw-semibold">➕ Add Employee</button>
+        </form>
+
+        <form method="get">
+          <input type="hidden" name="page" value="showEmp">
+          <button class="btn btn-outline-light w-100">👥 Show Employees</button>
+        </form>
+
+        <form method="get">
+          <input type="hidden" name="page" value="addDept">
+          <button class="btn btn-outline-light w-100">🏢 Add Department</button>
+        </form>
+
+        <form method="get">
+          <input type="hidden" name="page" value="showDept">
+          <button class="btn btn-outline-light w-100">📋 Show Departments</button>
+        </form>
+
+        <form method="get">
+          <input type="hidden" name="page" value="queries">
+          <button class="btn btn-outline-warning w-100">❓ User Queries</button>
+        </form>
+
+        <!-- GO TO DASHBOARD BUTTON -->
+        <a href="{% url 'dashboard' %}" class="btn btn-success w-100 mt-3">
+          🏠 Go to Dashboard
+        </a>
+
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="col-md-9 col-lg-10 p-4 bg-light rounded">
+
+      <!-- DASHBOARD HOME -->
+      {% if not request.GET.page %}
+        <h2 class="mb-4">Admin Dashboard 👋</h2>
+
+        <div class="row g-4">
+          <div class="col-md-3">
+            <div class="card text-center shadow-sm">
+              <div class="card-body">
+                <h6 class="text-muted">Total Users</h6>
+                <h2 class="text-primary">120</h2>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="card text-center shadow-sm">
+              <div class="card-body">
+                <h6 class="text-muted">Employees</h6>
+                <h2 class="text-success">45</h2>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="card text-center shadow-sm">
+              <div class="card-body">
+                <h6 class="text-muted">Departments</h6>
+                <h2 class="text-warning">8</h2>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="card text-center shadow-sm">
+              <div class="card-body">
+                <h6 class="text-muted">Queries</h6>
+                <h2 class="text-danger">12</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <!-- ADD EMPLOYEE -->
+      {% elif request.GET.page == "addEmp" %}
+        <h2>Add Employee</h2>
+        <hr>
+
+        <form method="post" class="col-md-6 bg-white p-4 rounded shadow-sm">
+          {% csrf_token %}
+
+          <div class="mb-3">
+            <label>Full Name</label>
+            <input type="text" name="name" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label>Email</label>
+            <input type="email" name="email" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label>Contact</label>
+            <input type="text" name="contact" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label>Password</label>
+            <input type="password" name="password" class="form-control" required>
+          </div>
+
+          <button class="btn btn-primary">💾 Save Employee</button>
+          <a href="{% url 'dashboard' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+
+      <!-- ADD DEPARTMENT -->
+      {% elif request.GET.page == "addDept" %}
+        <h2>Add Department</h2>
+        <hr>
+
+        <form method="post" class="col-md-6 bg-white p-4 rounded shadow-sm">
+          {% csrf_token %}
+
+          <div class="mb-3">
+            <label>Department Name</label>
+            <input type="text" name="dept_name" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label>Description</label>
+            <textarea name="description" class="form-control" rows="3"></textarea>
+          </div>
+
+          <button class="btn btn-success">💾 Save Department</button>
+          <a href="{% url 'dashboard' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+
+      <!-- SHOW EMPLOYEES -->
+      {% elif request.GET.page == "showEmp" %}
+        <h2>Employees List</h2>
+        <hr>
+        <p>Employee table here</p>
+
+      <!-- SHOW DEPARTMENTS -->
+      {% elif request.GET.page == "showDept" %}
+        <h2>Departments</h2>
+        <hr>
+        <p>Department list here</p>
+
+      <!-- QUERIES -->
+      {% elif request.GET.page == "queries" %}
+        <h2>User Queries</h2>
+        <hr>
+        <p>Queries list here</p>
+
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+
